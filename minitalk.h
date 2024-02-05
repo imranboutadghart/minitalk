@@ -6,7 +6,7 @@
 /*   By: imbo <imbo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:03:05 by imbo              #+#    #+#             */
-/*   Updated: 2023/10/29 19:41:12 by imbo             ###   ########.fr       */
+/*   Updated: 2024/01/14 21:12:49 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdlib.h>
-
-int	ft_putstr(const char *str);
-void ft_putchar(char c);
+//
+# define BUFFER_SIZE 1024
+int	ft_puterror(const char *str);
 size_t ft_strlen(const char *str);
 void ft_putnbr(int n);
 int	ft_atoi(const char *str);
