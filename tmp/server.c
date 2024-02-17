@@ -6,7 +6,7 @@
 /*   By: imbo <imbo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:45:18 by imbo              #+#    #+#             */
-/*   Updated: 2024/02/17 20:43:02 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/02/17 20:24:50 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,17 @@ void	handler(int sig, siginfo_t *info, void *ucontext)
 	(void)ucontext;
 	if (!pid)
 		pid = info->si_pid;
-	if (info->si_pid != pid)
+	if (pid != info->si_pid)
 	{
-		if (-1 == kill(info->si_pid, SIGUSR2) || -1 == kill(info->si_pid, SIGUSR2))
+		if (-1 == kill(info->si_pid, SIGUSR2))
 			s_error(s);
-		return ;
 	}
-	if (receive_bit(sig))
+	else if (receive_bit(sig))
 	{
-		if (-1 == kill(info->si_pid, SIGUSR2) || -1 == kill(info->si_pid, SIGUSR1))
+		if (-1 == kill(info->si_pid, SIGUSR1))
 			s_error(s);
 		pid = 0;
 	}
-	else
-		if (-1 == kill(info->si_pid, SIGUSR1))
-			s_error(s);
 }
 
 int	main(void)
