@@ -6,7 +6,7 @@
 /*   By: imbo <imbo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:45:18 by imbo              #+#    #+#             */
-/*   Updated: 2024/02/17 20:43:02 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/02/27 23:46:26 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	receive_bit(int n)
 
 	++bit;
 	c = (c << 1) + (n == SIGUSR2);
-	if(!(bit % 8))
+	if (!(bit % 8))
 	{
 		if (c && i < BUFFER_SIZE)
 			str[i++] = c;
@@ -64,13 +64,14 @@ void	handler(int sig, siginfo_t *info, void *ucontext)
 		pid = info->si_pid;
 	if (info->si_pid != pid)
 	{
-		if (-1 == kill(info->si_pid, SIGUSR2) || -1 == kill(info->si_pid, SIGUSR2))
-			s_error(s);
+		while (-1 != kill(info->si_pid, SIGUSR2))
+			;
 		return ;
 	}
 	if (receive_bit(sig))
 	{
-		if (-1 == kill(info->si_pid, SIGUSR2) || -1 == kill(info->si_pid, SIGUSR1))
+		if (-1 == kill(info->si_pid, SIGUSR2) || \
+				-1 == kill(info->si_pid, SIGUSR1))
 			s_error(s);
 		pid = 0;
 	}

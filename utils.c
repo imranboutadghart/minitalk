@@ -6,7 +6,7 @@
 /*   By: imbo <imbo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:02:20 by imbo              #+#    #+#             */
-/*   Updated: 2024/01/14 20:33:11 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/02/19 03:09:51 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	ft_puterror(const char *str)
 	return (i);
 }
 
-size_t ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -33,20 +33,18 @@ size_t ft_strlen(const char *str)
 	return (i);
 }
 
-static void	ft_putchar(char c)
+void	ft_putnbr(int n)
 {
-	write(1, &c, 1);
-}
+	char	c;
 
-void ft_putnbr(int n)
-{
 	if (n >= 10)
 	{
 		ft_putnbr(n / 10);
 		ft_putnbr(n % 10);
 		return ;
 	}
-	ft_putchar(n + '0');
+	c = n + '0';
+	write(1, &c, 1);
 }
 
 int	ft_atoi(const char *str)
@@ -56,15 +54,31 @@ int	ft_atoi(const char *str)
 	int		sign;
 
 	i = 0;
-	sign = 1;
 	result = 0;
-	while (' ' == str[i] || '\f' == str[i] || '\n' == str[i]
-		|| '\r' == str[i] || '\t' == str[i] || '\v' == str[i])
-		i++;
-	if ('+' == str[i] || '-' == str[i])
-		if ('-' == str[i++])
-			sign = -1;
-	while (str[i] >= '0' && str[i] <= '9')
+	while (str[i])
+	{
+		if (!(str[i] >= '0' && str[i] <= '9'))
+			exit(-1);
 		result = result * 10 + str[i++] - '0';
-	return ((int )(sign * result));
+		if (result > 2147483647)
+			exit(-1);
+	}
+	return ((int )(result));
+}
+
+void	get_vars(int *av1, char **av2, int set)
+{
+	static int	arg_pid;
+	static char	*arg_str;
+
+	if (set)
+	{
+		arg_pid = *av1;
+		arg_str = *av2;
+	}
+	else
+	{
+		*av1 = arg_pid;
+		*av2 = arg_str;
+	}
 }

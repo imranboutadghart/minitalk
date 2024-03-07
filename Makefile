@@ -1,5 +1,5 @@
-CC := gcc
-CFLAGS := -Wall -Wextra -Werror
+CC := cc
+CFLAGS := -Wall -Wextra -g#-Werror
 SRC := server.c client.c utils.c
 OBJ := $(SRC:.c=.o)
 SERVER := server
@@ -18,6 +18,7 @@ $(CLIENT) : client.o utils.o
 
 server.o : server.c minitalk.h
 	$(CC) $(CFLAGS) -c -o $@ $<
+
 .PHONY :all clean fclean re
 
 clean :
