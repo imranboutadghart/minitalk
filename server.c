@@ -6,7 +6,7 @@
 /*   By: imbo <imbo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:45:18 by imbo              #+#    #+#             */
-/*   Updated: 2024/02/27 23:46:26 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:16:45 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,12 @@ void	handler(int sig, siginfo_t *info, void *ucontext)
 	static char	s[] = "server to client error";
 	static int	pid;
 
-	(void)ucontext;
 	if (!pid)
 		pid = info->si_pid;
 	if (info->si_pid != pid)
 	{
 		while (-1 != kill(info->si_pid, SIGUSR2))
-			;
+			(void)ucontext;
 		return ;
 	}
 	if (receive_bit(sig))

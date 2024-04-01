@@ -6,7 +6,7 @@
 /*   By: imbo <imbo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:45:13 by imbo              #+#    #+#             */
-/*   Updated: 2024/02/28 00:05:32 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/04/01 03:09:35 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define GET 0
 #define SET 1
 
-int valid;
+int	g_valid;
 
 void	handler(int sig);
 void	get_vars(int *av1, char **av2, int set);
@@ -51,8 +51,7 @@ void	handler(int sig)
 	int			pid;
 	char		*str;
 
-	if (!valid)
-		valid = 1;
+	g_valid = 1;
 	get_vars(&pid, &str, GET);
 	if (!receiving)
 	{
@@ -73,16 +72,14 @@ int	main(int argc, char *argv[])
 	int					pid;
 	char				*str;
 
-	valid = 0;
+	g_valid = 0;
 	sa.sa_handler = handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	if (argc < 3)
-		return (c_error("Not enough arguments!\n"));
-	if (argc > 3)
-		return (c_error("Too many arguments!\n"));
+	if (argc != 3)
+		return (c_error("Wrong number of arguments!\n"));
 	pid = ft_atoi(argv[1]);
 	str = argv[2];
 	get_vars(&pid, &str, SET);
@@ -90,9 +87,9 @@ int	main(int argc, char *argv[])
 	while (1)
 	{
 		sleep(3);
-		if (!valid)
+		if (!g_valid)
 			exit (c_error("client to server error\n"));
-		valid = 0;
+		g_valid = 0;
 	}
 	return (0);
 }

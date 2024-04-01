@@ -6,7 +6,7 @@
 /*   By: imbo <imbo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:03:05 by imbo              #+#    #+#             */
-/*   Updated: 2024/02/19 01:49:46 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:27:41 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <signal.h>
 # include <stdlib.h>
 
-# define BUFFER_SIZE 1024
+# define BUFFER_SIZE 4096
 
 int		ft_puterror(const char *str);
 size_t	ft_strlen(const char *str);

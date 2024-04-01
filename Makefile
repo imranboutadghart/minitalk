@@ -1,5 +1,5 @@
 CC := cc
-CFLAGS := -Wall -Wextra -g#-Werror
+CFLAGS := -Wall -Wextra -Werror
 SRC := server.c client.c utils.c
 OBJ := $(SRC:.c=.o)
 SERVER := server
@@ -7,6 +7,8 @@ CLIENT := client
 NAME := minitalk
 
 all : $(NAME)
+
+bonus : all
 
 $(NAME) : $(SERVER) $(CLIENT)
 
@@ -19,7 +21,7 @@ $(CLIENT) : client.o utils.o
 server.o : server.c minitalk.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-.PHONY :all clean fclean re
+.PHONY :all clean fclean re bonus
 
 clean :
 	rm -rf $(OBJ)

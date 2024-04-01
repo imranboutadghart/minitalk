@@ -6,7 +6,7 @@
 /*   By: imbo <imbo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:02:20 by imbo              #+#    #+#             */
-/*   Updated: 2024/02/19 03:09:51 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:16:01 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	ft_atoi(const char *str)
 {
 	size_t	i;
 	long	result;
-	int		sign;
 
 	i = 0;
 	result = 0;
